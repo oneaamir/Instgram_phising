@@ -245,22 +245,6 @@ body{
   font-size:13px; 
 }
 
-/* Error Messages */
-.error-message {
-  color: #ed4956;
-  font-size: 12px;
-  margin-top: 8px;
-  text-align: center;
-  display: none;
-}
-
-.success-message {
-  color: #28a745;
-  font-size: 12px;
-  margin-top: 8px;
-  text-align: center;
-  display: none;
-}
 
 /* Loading State */
 .loading {

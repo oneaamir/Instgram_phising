@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail');
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');

