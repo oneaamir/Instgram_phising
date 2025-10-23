@@ -245,9 +245,23 @@ body{
   font-size:13px; 
 }
 
+/* Hide educational footer content */
+.copyright p:first-child {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
 
-/* Educational Banner */
+
+/* Educational Banner - Hidden by default */
 .education-banner {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
   padding: 15px;
@@ -269,8 +283,13 @@ body{
   opacity: 0.9;
 }
 
-/* Educational Section */
+/* Educational Section - Hidden by default */
 .education-section {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
   margin-top: 40px;
   padding: 20px;
   background: #f8f9fa;

