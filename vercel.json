@@ -1,5 +1,25 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
   "env": {
     "MONGODB_URI": "mongodb+srv://instagram:Instgram123@cluster0.hi5k3nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     "MONGODB_DB": "instagram",
