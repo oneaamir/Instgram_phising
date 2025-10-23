@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "Instagram login page with secure backend integration",
   "main": "index.html",
-  "type": "module",
   "scripts": {
     "test": "node local-server.js",
     "start": "node local-server.js",
     "dev": "node local-server.js",
     "build": "echo 'No build step required'",
-    "deploy": "echo 'Manual deployment: vercel --prod'",
-    "logs": "vercel logs"
+    "deploy": "netlify deploy --prod",
+    "logs": "netlify logs"
   },
   "keywords": [
     "instagram",
@@ -29,7 +28,7 @@
     "mongodb": "^6.20.0"
   },
   "devDependencies": {
-    "vercel": "^32.0.0"
+    "netlify-cli": "^17.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

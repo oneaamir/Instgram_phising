@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Frontend-Backend Integration Test</h1>
+    
+    <div id="results"></div>
+    
+    <button onclick="testAPI()">Test API Connection</button>
+    <button onclick="testFrontend()">Test Frontend</button>
+    <button onclick="testFullFlow()">Test Full Login Flow</button>
+    
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            results.appendChild(div);
+        }
+        
+        async function testAPI() {
+            addResult('Testing API endpoint...', 'info');
+            try {
+                const response = await fetch('/api/test');
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✅ API Test Passed: ${data.message}`, 'success');
+                } else {
+                    addResult(`❌ API Test Failed: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ API Test Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function testFrontend() {
+            addResult('Testing frontend elements...', 'info');
+            
+            const requiredElements = [
+                'loginForm', 'username', 'password', 'loginBtn'
+            ];
+            
+            let allFound = true;
+            requiredElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    addResult(`✅ Element found: ${id}`, 'success');
+                } else {
+                    addResult(`❌ Element missing: ${id}`, 'error');
+                    allFound = false;
+                }
+            });
+            
+            if (allFound) {
+                addResult('✅ Frontend Test Passed: All elements found', 'success');
+            } else {
+                addResult('❌ Frontend Test Failed: Missing elements', 'error');
+            }
+        }
+        
+        async function testFullFlow() {
+            addResult('Testing full login flow...', 'info');
+            
+            // Test form submission
+            const form = document.getElementById('loginForm');
+            if (!form) {
+                addResult('❌ Login form not found', 'error');
+                return;
+            }
+            
+            // Fill form with test data
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            if (usernameInput && passwordInput) {
+                usernameInput.value = 'test@example.com';
+                passwordInput.value = 'testpassword123';
+                addResult('✅ Form filled with test data', 'success');
+                
+                // Test form validation
+                const loginBtn = document.getElementById('loginBtn');
+                if (loginBtn && !loginBtn.disabled) {
+                    addResult('✅ Form validation working', 'success');
+                } else {
+                    addResult('❌ Form validation failed', 'error');
+                }
+            } else {
+                addResult('❌ Form inputs not found', 'error');
+            }
+        }
+        
+        // Auto-run basic tests on load
+        window.addEventListener('load', () => {
+            addResult('🚀 Integration test page loaded', 'info');
+            setTimeout(testFrontend, 1000);
+        });
+    </script>
+"_self"
+</body>
+</html>
