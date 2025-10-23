@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "functions": {
-    "api/login.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "api/login.js",
+      "use": "@vercel/node"
     },
-    "api/send-email.js": {
-      "runtime": "nodejs18.x"
+    {
+      "src": "api/send-email.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "env": {
     "MONGODB_URI": "mongodb+srv://instagram:Instgram123@cluster0.hi5k3nn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     "MONGODB_DB": "instagram",
