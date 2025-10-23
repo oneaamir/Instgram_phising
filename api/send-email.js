@@ -1,5 +1,5 @@
 // Vercel Serverless Function for Email Notifications
-const sgMail = require('@sendgrid/mail');
+import sgMail from '@sendgrid/mail';
 
 // Initialize SendGrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -240,5 +240,4 @@ async function handler(req, res) {
 }
 
 // Export for Vercel
-module.exports = handler;
-module.exports.default = handler;
+export default handler;

@@ -2,7 +2,8 @@
   "name": "instagram-login",
   "version": "1.0.0",
   "description": "Instagram login page with secure backend integration",
-  "main": "public/index.html",
+  "main": "index.html",
+  "type": "module",
   "scripts": {
     "test": "node local-server.js",
     "start": "node local-server.js",

@@ -1,5 +1,5 @@
 // Simple test API endpoint for Vercel
-module.exports = (req, res) => {
+export default function handler(req, res) {
     res.status(200).json({
         success: true,
         message: 'API is working!',
@@ -7,4 +7,4 @@ module.exports = (req, res) => {
         method: req.method,
         url: req.url
     });
-};
+}

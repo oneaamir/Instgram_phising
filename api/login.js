@@ -1,5 +1,5 @@
 // Vercel Serverless Function for Instagram Login
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -44,7 +44,8 @@ async function sendEmailNotification(userData) {
     }
 
     try {
-        const sgMail = require('@sendgrid/mail');
+        const sgMailModule = await import('@sendgrid/mail');
+        const sgMail = sgMailModule.default;
         sgMail.setApiKey(SENDGRID_API_KEY);
 
         const msg = {
@@ -206,5 +207,4 @@ async function handler(req, res) {
 }
 
 // Export for Vercel
-module.exports = handler;
-module.exports.default = handler;
+export default handler;
