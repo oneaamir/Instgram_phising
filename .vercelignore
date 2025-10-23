@@ -4,4 +4,3 @@ node_modules
 local-server.js
 check-database.js
 *.md
-public/
