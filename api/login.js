@@ -207,3 +207,4 @@ async function handler(req, res) {
 
 // Export for Vercel
 module.exports = handler;
+module.exports.default = handler;
