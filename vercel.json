@@ -20,14 +20,6 @@
       "dest": "/public/$1"
     }
   ],
-  "functions": {
-    "api/login.js": {
-      "maxDuration": 30
-    },
-    "api/send-email.js": {
-      "maxDuration": 30
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
